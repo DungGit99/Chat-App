@@ -1,6 +1,6 @@
 # Realtime Chat Application - Socket.io, Node.js, and React.js
-[!'./client/src/assets/images/Room.png']
-[!'./client/src/assets/images/Chat.png']
+![](./client/src/assets/images/Room.png)
+![](./client/src/assets/images/Chat.png)
 ## Install
 - client
     - npx create-react-app client
