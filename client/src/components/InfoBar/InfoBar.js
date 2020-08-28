@@ -2,7 +2,7 @@ import React from 'react';
 import userIcon from '../../assets/images/user-icon.jpg';
 
 import './InfoBar.css'
-const InfoBar = () => {
+const InfoBar = ({room, name}) => {
   return (
     <div className="infoBar">
     <div className="left">
@@ -11,17 +11,17 @@ const InfoBar = () => {
       </a>
     </div>
     <div className="mid">
-      <h3>Room 1</h3>
+      <h3>{room}</h3>
     </div>
     <div className="right">
-      <div class="image_outer_container">
-				<div class="green_icon"></div>
-				<div class="image_inner_container">
+      <div className="image_outer_container">
+				<div className="green_icon"></div>
+				<div className="image_inner_container">
 					<img src={userIcon} alt="user-icon"/>
 				</div>
 			</div>
       <div>
-        <span>Code99</span>
+        <span>{name}</span>
       </div>
     </div>
   </div>
