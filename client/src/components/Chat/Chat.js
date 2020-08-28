@@ -9,23 +9,43 @@ let socket;
 const queryString = require('query-string');
 
 const Chat = ({ location })=>{
-    const ENDPOINT = 'localhost:5000';
+    const ENDPOINT = 'http://localhost:5000';
     const [ name, setName ] = useState('');
     const [ room, setRoom ] = useState('');
+    const [ users, setUsers ] = useState('');
+    const [message, setMessage] = useState('');
+    const [messagesList, setMessagesList] = useState([]);
     useEffect(()=>{
         const { name, room } = queryString.parse(location.search);
         socket = io(ENDPOINT); // connect to server
         setRoom(room);
         setName(name);
-        socket.emit('join',{ name, room }) // Emits an event to the socket identified by the string name.
+        // Emits an event to the socket identified by the string name.
+        socket.emit('join', { name, room }, (error) => {
+            if(error) {
+              alert(error);
+            }
+         });
     },[ENDPOINT,location.search])
+    useEffect(() => {
+        socket.on('message', message => {
+            setMessagesList([...messagesList,message])
+        })
+    },[messagesList])
+    const sendMessage = e => {
+        e.preventDefault()
+        if(message) {
+            socket.emit('sendMessage',message,()=>setMessage(''))
+        }
+    }
+    console.log(messagesList);
     return (
         <div className="outerContainer">
             <div className="container">
-                <InfoBar/>
-                <UserOnline/>
+                <InfoBar room={room} name={name}/>
+                <UserOnline users={users}/>
                 <Messages/>
-                <Input/>
+                <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
             </div>
         </div>
     )

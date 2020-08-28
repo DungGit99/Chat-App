@@ -1,6 +1,6 @@
 import React from 'react';
 import './Messages.css'
-const Messages = () => {
+const Messages = ({ messages, name }) => {
   return (
     <div className="messages">
       <div className="messageContainer justifyStart">
